@@ -5,7 +5,7 @@ musicPlayer是基于Flash和HTML5两个方案开发的MP3音乐播放组件, 3�
 * 版本：2.0.1
 * 作者：doin
 * gitlab : [http://gitlab.alibaba-inc.com/kg/musicplayer](http://gitlab.alibaba-inc.com/kg/musicplayer)
-* demo汇总：[http://gallery.kissyui.com/musicPlayer/doc/demo/index.html]
+* demo汇总：[http://gallery.kissyui.com/musicPlayer/doc/demo/index.html](http://gallery.kissyui.com/musicPlayer/doc/demo/index.html)
 
 ## 1分钟实例
 
