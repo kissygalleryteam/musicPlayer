@@ -4,7 +4,8 @@ musicPlayer是基于Flash和HTML5两个方案开发的MP3音乐播放组件, 3�
 
 * 版本：2.0.1
 * 作者：doin
-* demo : [https://github.com/doin/musicPlayer](https://github.com/doin/musicPlayer)
+* gitlab : [http://gitlab.alibaba-inc.com/kg/musicplayer](http://gitlab.alibaba-inc.com/kg/musicplayer)
+* demo汇总：[http://gallery.kissyui.com/musicPlayer/doc/demo/index.html]
 
 ## 1分钟实例
 
@@ -45,6 +46,12 @@ mode     |     String     |     读/写      |播放完直接停止(stop):单曲
 buffer     |    int      |     读/写      |    默认1000毫秒   |    音乐播放缓冲区时间
 volume     |    Number    |     读/写      |    0-1之间   |    音量控制,后期可随时设置
 progress     |    int    |   只写      |    0-100之间   |   设置当前播放歌曲的进度
+
+```javascript
+    musicPlayer.set('mode', 'single');
+    musicPlayer.get('mode');
+```
+
 
 ## 方法说明
 
