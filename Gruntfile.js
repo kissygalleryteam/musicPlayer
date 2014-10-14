@@ -11,7 +11,7 @@ module.exports = function(grunt) {
             '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
             '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
             ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
-        buildBase: '2.0/build',
+        buildBase: '2.0.1/build',
         // kmc打包任务，默认情况，入口文件是index.js，可以自行添加入口文件，在files下面
         // 添加
         kmc: {
@@ -22,13 +22,13 @@ module.exports = function(grunt) {
                         path: '../'
                     }
                 ],
-                map: [["<%= pkg.name %>/", "gallery/<%= pkg.name %>/"]]
+                map: [["<%= pkg.name %>/", "kg/<%= pkg.name %>/<%= pkg.version %>/"]]
             },
             main: {
                 files: [
                     {
-                        src: "<%= pkg.version %>/index.js",
-                        dest: "<%= pkg.version %>/build/index.js"
+                        src: "./index.js",
+                        dest: "build/"
                     }
                 ]
             }
@@ -44,21 +44,21 @@ module.exports = function(grunt) {
             },
             base: {
                 files: {
-                    '<%= pkg.version %>/build/index-min.js': ['<%= pkg.version %>/build/index.js']
+                    'build/index-min.js': ['build/index.js']
                 }
             }
         },
         copy: {
             main: {
                 files: [
-                    {src: ['<%= pkg.version %>/**'], dest: '<%= pkg.version %>/build/**'}
+                    {src: ['**'], dest: 'build/**'}
                 ]
             }
         },
         cssmin: {
             combine: {
                 files: {
-                    '<%= pkg.version %>/build/index-min.css': ['<%= pkg.version %>/build/index.css']
+                    'build/index-min.css': ['build/index.css']
                 }
             }
         }
