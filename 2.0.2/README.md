@@ -24,4 +24,4 @@
 
 ### V2.0.1 - '迁移'
 
-     [!]从GITHUB迁移到GITLAB
+    [!]从GITHUB迁移到GITLAB
