@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>musicPlayer</title>
+    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://docs.kissyui.com/1.4/source/guideline/templates/assets/com-prettify.css">
+    <link rel="stylesheet" href="http://docs.kissyui.com/1.4/source/guideline/templates/assets/com.css">
+    <script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="http://cdn.staticfile.org/prettify/r298/prettify.min.js"></script>
+    <script src="http://g.tbcdn.cn/kissy/k/1.4.8/seed-min.js" data-config="{combine:true}"></script>
+  </head>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+    <div id="header"><a href="http://docs.kissyui.com/" class="logo">kissy</a>
+      <nav><a href="http://docs.kissyui.com/1.4/docs/html/coms.html">优秀组件推荐</a></nav>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3 bs-docs-sidebar">
+          <ul data-spy="affix" data-offset-top="0" class="nav nav-list bs-docs-sidenav"></ul>
+        </div>
+        <div class="span9 bs-docs-content">
+          <h1 data-id="undefined" class="title">musicPlayer</h1>
+          <p class="author-wrapper"><span>组件有问题？旺旺联系作者：</span><a href="https://github.com/doin" target="_blank" data-name="韩升" class="author"><img src="https://avatars.githubusercontent.com/u/1405231?v=2&amp;s=60" alt="韩升"></a><span class="author-name">韩升</span>
+          </p>
+          <div class="common-link"><a href="../demo/index.html" target="_blank" class="demo">示例</a><a href="https://github.com/kissygalleryteam/musicPlayer" target="_blank" class="source">源码</a></div>
+          <p class="com-info"><span class="info-label">View</span><span data-com="musicPlayer" class="J_View">2086</span></p>
+          <p class="com-info"><span class="info-label">所属分类</span><a href="http://kpm.taobao.net/list/音视频">音视频</a>
+          </p>
+          <p class="com-info"><span class="info-label">kissy版本</span><span>1.4.X</span>
+          </p><h2 id="-">综述</h2>
+<p>musicPlayer是基于Flash和HTML5两个方案开发的MP3音乐播放组件, 3分钟即可完成简单的音乐播放, 我们不需要关心内部封装的数据和控制, 只要专注于侦听数据改变我们的视图即可.</p>
+<ul>
+<li>最新版本：2.0.1 (github迁移到gitlab)</li>
+<li>作者：doin</li>
+<li>gitlab : <a href="http://gitlab.alibaba-inc.com/kg/musicplayer">http://gitlab.alibaba-inc.com/kg/musicplayer</a></li>
+<li>demo汇总：<a href="http://gallery.kissyui.com/musicPlayer/doc/demo/index.html">http://gallery.kissyui.com/musicPlayer/doc/demo/index.html</a></li>
+</ul>
+<p>V2.0 log</p>
+<ul>
+<li>播放器加入对HTML5的支持,自动优先使用audio功能.</li>
+<li>支持手机多终端上MP3的播放.</li>
+<li>增加初始始属性&#39;type&#39;,可选择强制使用方案.</li>
+</ul>
+<p>V1.0 log</p>
+<ul>
+<li>仅支持SWF的MP3播放器</li>
+</ul>
+<h2 id="1-">1分钟实例</h2>
+<p>1分钟实现背景音乐循环播放
+引入KISSY-seed,复制嵌入代码,修改歌曲路径即可</p>
+<pre><code class="lang-javascript">    S.use(&#39;kg/musicplayer/2.0.1/index&#39;, function (S, MusicPlayer) {
+         var musicPlayer = new MusicPlayer({
+                                           auto:&#39;true&#39;, //自动播放 默认不播放.
+                                           mode:&#39;order&#39;, //如果几首歌想随机播放,设置为 random, 默认为order.
+                                           musicList:[{&quot;name&quot;:&quot;歌名&quot;, &quot;path&quot;:&quot;./歌曲地址.mp3&quot;},...{也可以几首歌循环播放}]
+                                       });
+    })
+</code></pre>
+<h2 id="-">初始化配置参数说明</h2>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>参数类型</th>
+<th>默认</th>
+<th>参数说明</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>&#39;auto&#39;</td>
+<td>auto,flash,html5</td>
+<td>设置使用的播和方式,如设置强制使用FLASH播放,默认先走HTML5可用性再走FLASH</td>
+</tr>
+<tr>
+<td>auto</td>
+<td>Boolean</td>
+<td>false</td>
+<td>false:true</td>
+<td>组件初始化完成是否自动播放, 默认需要点击播放按钮</td>
+</tr>
+<tr>
+<td>volume</td>
+<td>Number</td>
+<td>0.25</td>
+<td>0-1之间</td>
+<td>音量控制,后期可随时设置</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>String</td>
+<td>&#39;order&#39;</td>
+<td>播放完直接停止(stop):单曲循环(single):随机播放(random):顺序播放(order)</td>
+<td>设置自动播放完成后的模式</td>
+</tr>
+<tr>
+<td>musicList</td>
+<td>Object</td>
+<td>null</td>
+<td>格式要求:[{&quot;name&quot;:&quot;歌名&quot;, &quot;path&quot;:&quot;./歌曲地址.mp3&quot;}]</td>
+<td>音乐列表,后期可随时设置</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td>int</td>
+<td>1000毫秒</td>
+<td>缓冲毫秒</td>
+<td>音乐播放缓冲区间</td>
+</tr>
+<tr>
+<td>nplay</td>
+<td>String</td>
+<td>null</td>
+<td>selector</td>
+<td>默认绑定播放按钮,不自己调用play()方法时可设置</td>
+</tr>
+<tr>
+<td>nstop</td>
+<td>String</td>
+<td>null</td>
+<td>selector</td>
+<td>默认绑定停止按钮,不自己调用stop()方法时可设置</td>
+</tr>
+<tr>
+<td>npause</td>
+<td>String</td>
+<td>null</td>
+<td>selector</td>
+<td>默认绑定暂停按钮,不自己调用pause()方法时可设置</td>
+</tr>
+<tr>
+<td>npre</td>
+<td>String</td>
+<td>null</td>
+<td>selector</td>
+<td>默认绑定上一曲按钮,不自己调用pre()方法时可设置</td>
+</tr>
+<tr>
+<td>nnext</td>
+<td>String</td>
+<td>null</td>
+<td>selector</td>
+<td>默认绑定下一曲,不自己调用nexe()方法时可设置</td>
+</tr>
+</tbody>
+</table>
+<h2 id="-">属性说明</h2>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>参数类型</th>
+<th>读写</th>
+<th>参数说明</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mode</td>
+<td>String</td>
+<td>读/写</td>
+<td>播放完直接停止(stop):单曲循环(single):随机播放(random):顺序播放(order)</td>
+<td>设置自动播放完成后的模式</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td>int</td>
+<td>读/写</td>
+<td>默认1000毫秒</td>
+<td>音乐播放缓冲区时间</td>
+</tr>
+<tr>
+<td>volume</td>
+<td>Number</td>
+<td>读/写</td>
+<td>0-1之间</td>
+<td>音量控制,后期可随时设置</td>
+</tr>
+<tr>
+<td>progress</td>
+<td>int</td>
+<td>只写</td>
+<td>0-100之间</td>
+<td>设置当前播放歌曲的进度</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-javascript">    musicPlayer.set(&#39;mode&#39;, &#39;single&#39;);
+    musicPlayer.get(&#39;mode&#39;);
+</code></pre>
+<h2 id="-">方法说明</h2>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>参数类型</th>
+<th>参数说明</th>
+<th>返回值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>setList</td>
+<td>Object</td>
+<td>格式要求:[{&quot;name&quot;:&quot;歌名&quot;, &quot;path&quot;:&quot;./歌曲地址.mp3&quot;}]</td>
+<td>无</td>
+<td>设置歌曲列表,会默认播放新列表中的第一首</td>
+</tr>
+<tr>
+<td>play</td>
+<td>int</td>
+<td>大于等于0, 不写参数默认当前歌曲</td>
+<td>无</td>
+<td>播放歌曲</td>
+</tr>
+<tr>
+<td>stop</td>
+<td>无</td>
+<td>无</td>
+<td>无</td>
+<td>停止歌曲,再次调用播放,从头继续播放</td>
+</tr>
+<tr>
+<td>pause</td>
+<td>无</td>
+<td>无</td>
+<td>无</td>
+<td>暂停歌曲, 再次调用播放,从断点继续播放</td>
+</tr>
+<tr>
+<td>pre</td>
+<td>无</td>
+<td>无</td>
+<td>无</td>
+<td>从头播放上一曲</td>
+</tr>
+<tr>
+<td>     next</td>
+<td>无</td>
+<td>无</td>
+<td>无</td>
+<td>从头播放下一曲</td>
+</tr>
+</tbody>
+</table>
+<h2 id="-">事件说明</h2>
+<table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>status</td>
+<td>侦听该事件可获取play,stop等状态,写对应处理代码.</td>
+</tr>
+<tr>
+<td>error</td>
+<td>出错时,返回错误信息,调试的时候很有用.</td>
+</tr>
+<tr>
+<td>progress</td>
+<td>侦听该事件可获取curtime,counttime等信息,</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>status      </p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>status</td>
+<td>获取当前状态(play:stop:pause:render)</td>
+</tr>
+<tr>
+<td>index</td>
+<td>获取当前索引值</td>
+</tr>
+<tr>
+<td>name</td>
+<td>获取当前歌名</td>
+</tr>
+<tr>
+<td>path</td>
+<td>获取当前歌曲路径</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>获取当前播放模式</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-javascript">    musicPlayer.on(&quot;status&quot;, function(ev) {
+        switch(ev.status) {
+            case &quot;render&quot;: //SWF写入页面完成.
+            case &quot;play&quot;:
+                break;
+            case &quot;stop&quot;:
+                break;
+            default;
+         }
+    }
+</code></pre>
+<blockquote>
+<p>error     </p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>错误类型,1000为FLASH中出错</td>
+</tr>
+<tr>
+<td>msg</td>
+<td>出错信息</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-javascript">    musicPlayer.on(&quot;error&quot;, function(ev) {
+        S.log([ev.type, ev.msg]);
+    }
+</code></pre>
+<blockquote>
+<p>progress    </p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>curtime</td>
+<td>获取当前播放时间,格式00:00</td>
+</tr>
+<tr>
+<td>counttime</td>
+<td>获取当前歌曲总时长,格式00:00</td>
+</tr>
+<tr>
+<td>progress</td>
+<td>获取当前歌曲播放进度,值为0-100</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-javascript">    musicPlayer.on(&quot;progress&quot;, function(ev) {
+        S.log([ev.curtime, ev.counttime, ev.progress]);
+    }
+</code></pre>
+<h2 id="demo-">demo演示</h2>
+<ul>
+<li><a href="http://gallery.kissyui.com/musicPlayer/2.0.1/demo/demo1.html?ks-debug">简单的控制音乐播放</a></li>
+<li><a href="http://gallery.kissyui.com/musicPlayer/2.0.1/demo/demo2.html?ks-debug">MP3列表模式实例</a></li>
+<li><a href="http://gallery.kissyui.com/musicPlayer/2.0.1/demo/demo3.html?ks-debug">完整MP3播放器-演示所有功能</a></li>
+</ul>
+<h2 id="q-a">Q&amp;A</h2>
+<h4 id="-">处理跨域问题？</h4>
+<p>在url后面加上ks-debug，看下调试工具控制台输出是否有个“缺少crossdomain.xml”的提示。</p>
+<p>crossdomain.xml是flash的安全策略文件，需要放在在域名根目录下，比如应用域名为refund.taobao.com，那么就应该有<a href="http://www.refund.taobao.com/crossdomain.xml，在调试时可以将这个文件代理到本地。">http://www.refund.taobao.com/crossdomain.xml，在调试时可以将这个文件代理到本地。</a></p>
+<p>crossdomain.xml的内容可以如下：</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;cross-domain-policy&gt;
+    &lt;allow-access-from domain=&quot;*&quot;/&gt;
+    &lt;!--下面这行代码必须有--&gt;
+    &lt;allow-access-from domain=&quot;*.tbcdn.cn&quot;/&gt;
+&lt;/cross-domain-policy&gt;
+</code></pre>
+<h4 id="-">组件不可用</h4>
+<p>flash对象不能设置<code>display:none;</code>，父容器隐藏也是不行的！这点特别留意。</p>
+<p>你可以设置<code>position:absolute;top:-2000px</code>，这样的位移方式来处理。</p>
+
+          <div style="display:none;"><script type="text/javascript" src="http://tajs.qq.com/stats?sId=36378479" charset="UTF-8"></script></div>
+          <script src="http://docs.kissyui.com/1.4/source/guideline/templates/assets/com.js"></script>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
